@@ -5,9 +5,9 @@ import {
   Body,
   Param,
   Delete,
-  Patch,
   Query,
   BadRequestException,
+  Put,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -41,7 +41,7 @@ export class BookController {
     return this.bookService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateBookDto: UpdateBookDto,
