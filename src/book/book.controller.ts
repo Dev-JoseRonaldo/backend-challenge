@@ -23,6 +23,14 @@ export class BookController {
     return this.bookService.create(createBookDto);
   }
 
+  @Get('/search')
+  findByGenre(@Query('genre') genre: string): Promise<Book[]> {
+    if (!genre) {
+      throw new BadRequestException('Genre parameter is required');
+    }
+    return this.bookService.findByGenre(genre);
+  }
+
   @Get()
   findAll(): Promise<Book[]> {
     return this.bookService.findAll();
@@ -44,13 +52,5 @@ export class BookController {
   @Delete(':id')
   remove(@Param('id') id: string): Promise<void> {
     return this.bookService.remove(+id);
-  }
-
-  @Get()
-  findByGenre(@Query('genre') genre: string): Promise<Book[]> {
-    if (!genre) {
-      throw new BadRequestException('Genre parameter is required');
-    }
-    return this.bookService.findByGenre(genre);
   }
 }
