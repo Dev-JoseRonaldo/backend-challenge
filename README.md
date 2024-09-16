@@ -5,34 +5,18 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Descrição
 
-## Description
+API desenvolvida como atividade da disciplina de engenharia de software. Esta API permite operações CRUD para livros, além de buscar livros por gênero.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Setup do Projeto
 
-## Project setup
-
-```bash
+```js
+// Após clonar o repositório, acesse a pasta do projeto e execute:
 $ npm install
 ```
 
-## Compile and run the project
+## Compilando e Executando o projeto
 
 ```bash
 # development
@@ -45,7 +29,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Run tests
+## Executando os testes
 
 ```bash
 # unit tests
@@ -58,28 +42,236 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Resources
+## Outros Scripts
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+# Executar o seed de dados
+npm run seed
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+# Documentação da API
 
-## Support
+### Endereço Base
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+**Base URL:** `http://localhost:3000`
 
-## Stay in touch
+## 1. Create Book
+  - **Descrição:** Cria um novo livro
+  - **Método:** `POST`
+  - **URL:** `/books`
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+  Exemplo de requisição:
+  ```json
+  POST /books
+  Content-Type: application/json
 
-## License
+  {
+    "title": "O Senhor dos Anéis",
+    "author": "J.R.R. Tolkien",
+    "genre": "Fantasy",
+    "year": 1954,
+    "stock": 20
+  }
+  ```
+  Resposta de Sucesso
+- Status: `201 Created`
+- Exemplo:
+```json
+{
+  "id": 1,
+  "title": "O Senhor dos Anéis",
+  "author": "J.R.R. Tolkien",
+  "genre": "Fantasy",
+  "year": 1954,
+  "stock": 20
+}
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## 2. Get All Books
+  - **Descrição:** Retorna todos os livros cadastrados
+  - **Método:** `GET`
+  - **URL:** `/books`
+
+  Exemplo de Requisição
+  ```json
+  GET /books
+  ```
+ Resposta de Sucesso
+  - Status: `200 OK`
+  - Exemplo:
+
+  ```json
+  [
+    {
+      "id": 1,
+      "title": "O Senhor dos Anéis",
+      "author": "J.R.R. Tolkien",
+      "genre": "Fantasy",
+      "year": 1954,
+      "stock": 20
+    },
+    {
+      "id": 2,
+      "title": "1984",
+      "author": "George Orwell",
+      "genre": "Dystopian",
+      "year": 1949,
+      "stock": 10
+    }
+  ]
+```
+
+## 3. Get Book By Id
+  - **Descrição:** Retorna um livro específico
+  - **Método:** `GET`
+  - **URL:** `/books/:id`
+
+  Exemplo de Requisição
+  ```bash
+  GET /books/1
+  ```
+
+  Resposta de Sucesso
+  - Status: `200 OK`
+  - Exemplo:
+  ```json
+  {
+    "id": 1,
+    "title": "O Senhor dos Anéis",
+    "author": "J.R.R. Tolkien",
+    "genre": "Fantasy",
+    "year": 1954,
+    "stock": 20
+  }
+  ```
+
+  Resposta de Erro
+  - Status: `404 Not Found`
+  - Exemplo:
+  ```json
+  {
+    "message": "Book with ID 200 not found",
+    "error": "Not Found",
+    "statusCode": 404
+  }
+  ```
+
+
+## 4. Update Book
+  - **Descrição:** Atualiza um livro
+  - **Método:** `PUT`
+  - **URL:** `/books/:id`
+
+  Exemplo de Requisição
+  ```json
+  PUT /books/1
+  ```
+
+  Resposta de Sucesso
+  - Status: `200 OK`
+  - Exemplo:
+  ```json
+  {
+    "id": 1,
+    "title": "O Senhor dos Anéis",
+    "author": "J.R.R. Tolkien",
+    "genre": "Fantasy",
+    "year": 1954,
+    "stock": 15
+  }
+  ```
+
+  Resposta de Erro
+  - Status: `404 Not Found`
+  - Exemplo:
+  ```json
+  {
+    "message": "Book with ID 200 not found",
+    "error": "Not Found",
+    "statusCode": 404
+  }
+  ```
+
+## 5. Delete Book
+  - **Descrição:** Deleta um livro
+  - **Método:** `DELETE`
+  - **URL:** `/books/:id`
+
+  Exemplo de Requisição
+  ```json
+  DELETE /books/1
+  ```
+
+  Resposta de Sucesso
+  - Status: `200 OK`
+
+  Resposta de Erro
+  - Status: `404 Not Found`
+  - Exemplo:
+  ```json
+  {
+    "message": "Book with ID 200 not found",
+    "error": "Not Found",
+    "statusCode": 404
+  }
+  ```
+
+## 6. Get Books By Genre
+  - **Descrição:** Retorna todos os livros de um determinado gênero
+  - **Método:** `GET`
+  - **URL:** `/books/search?genre={genre}`
+
+  Exemplo de Requisição
+  ```json
+  GET /books/search?genre=Fantasy
+  ```
+  Resposta de Sucesso
+  - Status: `200 OK`
+  - Exemplo:
+  ```json
+  [
+    {
+      "id": 1,
+      "title": "O Senhor dos Anéis",
+      "author": "J.R.R. Tolkien",
+      "genre": "Fantasy",
+      "year": 1954,
+      "stock": 20
+    }
+  ]
+  ```
+  Resposta de Erro
+  - Status: `404 Not Found`
+  - Exemplo:
+  ```json
+  {
+    "message": "No books found with genre 'Horror'",
+    "error": "Not Found",
+    "statusCode": 404
+  }
+  ```
+
+  - Status: `400 Bad Request`
+  - Exemplo:
+  ```json
+  {
+    "message": "Genre parameter is required",
+    "error": "Bad Request",
+    "statusCode": 400
+  }
+  ```
+
+## Estrutura de Dados do Livro (Book)
+- `id` (número) - Identificador único do livro.
+- `title` (string) - O título do livro.
+- `author` (string) - O autor do livro.
+- `genre` (string) - O gênero literário do livro.
+- `year` (número) - Ano de publicação.
+- `stock` (número) - Quantidade em estoque.
+
+## Status de Erros
+A API pode retornar os seguintes status de erro:
+
+- `404 Not Found` – Recurso não encontrado.
+- `400 Bad Request` – Requisição inválida.
+- `500 Internal Server Error` – Erro interno no servidor.
